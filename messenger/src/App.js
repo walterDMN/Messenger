@@ -6,7 +6,7 @@ import db from './firebase';
 import firebase from 'firebase';
 import FlipMove from 'react-flip-move';
 import SendIcon from '@material-ui/icons/Send';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Grid } from '@material-ui/core';
 
 function App() {
   const [input, setInput] = useState('');
@@ -29,8 +29,8 @@ function App() {
     setUsername(prompt('Please enter your name'))
   }, [] ) //condition
 
-  const sendMessage = (event ) => {
-    // all the lofic to send a message goes here
+  const sendMessage = (event) => {
+    // all the logic to send a message goes here
     event.preventDefault();
 
     db.collection('messages').add({
@@ -42,19 +42,21 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <Grid className="App" xs={6}>
 
       <h1>Messenger App</h1>
       <h2>Welcome {username}</h2>
 
-      <form className="app__form">
+      
+      <Grid className="app__form" xs={6}>
         <FormControl className="app__formControl">
           <Input className="app__input" placeholder='Enter a message...' value={input} onChange={event => setInput(event.target.value)} />
           <IconButton className="app__iconButton" disabled={!input} variant="contained" color="primary" type='submit' onClick={sendMessage}>
             <SendIcon />
           </IconButton>
         </FormControl>
-      </form>
+      </Grid>
+
 
       <FlipMove>
         {
@@ -62,9 +64,9 @@ function App() {
             <Message key={id} username={username} message={message} />
           ))
         }
-      </FlipMove> 
+      </FlipMove>
 
-    </div>
+    </Grid>
   );
 }
 
